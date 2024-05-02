@@ -3,6 +3,7 @@ import 'package:elkhabr/cubit/states.dart';
 import 'package:elkhabr/layouts/home_layout.dart';
 import 'package:elkhabr/observer.dart';
 import 'package:elkhabr/services/cache.dart';
+import 'package:elkhabr/utils/helper.dart';
 import 'package:elkhabr/utils/thems.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -35,6 +36,8 @@ class _MyAppState extends State<MyApp> {
     return BlocProvider(
       create: (context) => AppCubit()
         ..getBusiness()
+        ..getSports()
+        ..getBusiness()
         ..changeMode(
           fromShared: widget.isDark,
         ),
@@ -43,14 +46,47 @@ class _MyAppState extends State<MyApp> {
         builder: (context, state) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
+            navigatorKey: navigatorKey,
             theme: ThemeData(
               scaffoldBackgroundColor: AppColors.scaffoldBackColorLight,
               platform: TargetPlatform.iOS,
               useMaterial3: false,
               fontFamily: "Richard",
+              inputDecorationTheme: InputDecorationTheme(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                      color: AppColors.primaryColor,
+                    )),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(
+                    color: AppColors.primaryColor,
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(
+                    color: AppColors.primaryColor,
+                  ),
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(
+                    color: AppColors.primaryColor,
+                  ),
+                ),
+                labelStyle: const TextStyle(
+                  color: AppColors.primaryColor,
+                ),
+                prefixIconColor: AppColors.primaryColor,
+              ),
               appBarTheme: const AppBarTheme(
                 centerTitle: false,
                 titleSpacing: 18,
+                actionsIconTheme: IconThemeData(
+                  color: Colors.black,
+                ),
                 backgroundColor: AppColors.scaffoldBackColorLight,
                 elevation: 0,
                 systemOverlayStyle: SystemUiOverlayStyle(
@@ -71,9 +107,40 @@ class _MyAppState extends State<MyApp> {
               platform: TargetPlatform.iOS,
               useMaterial3: false,
               fontFamily: "Richard",
+              inputDecorationTheme: InputDecorationTheme(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                      color: AppColors.primaryColor,
+                    )),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                      color: AppColors.primaryColor,
+                    )),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(
+                    color: AppColors.primaryColor,
+                  ),
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(
+                    color: AppColors.primaryColor,
+                  ),
+                ),
+                labelStyle: const TextStyle(
+                  color: AppColors.primaryColor,
+                ),
+                prefixIconColor: AppColors.primaryColor,
+              ),
               appBarTheme: const AppBarTheme(
                 centerTitle: false,
                 titleSpacing: 18,
+                actionsIconTheme: IconThemeData(
+                  color: Colors.white,
+                ),
                 backgroundColor: AppColors.scaffoldBackColorDark,
                 elevation: 0,
                 systemOverlayStyle: SystemUiOverlayStyle(

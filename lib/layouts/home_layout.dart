@@ -1,6 +1,8 @@
 import 'package:elkhabr/cubit/cubit.dart';
 import 'package:elkhabr/cubit/states.dart';
+import 'package:elkhabr/modules/search.dart';
 import 'package:elkhabr/utils/app_strings.dart';
+import 'package:elkhabr/utils/helper.dart';
 import 'package:elkhabr/utils/thems.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,9 +41,10 @@ class HomeLayoutView extends StatelessWidget {
                 width: 20,
               ),
               IconButton(
-                onPressed: ()
-                {
-
+                onPressed: () {
+                  push(
+                    SearchView(),
+                  );
                 },
                 icon: const Icon(
                   Icons.search,
@@ -70,3 +73,5 @@ class HomeLayoutView extends StatelessWidget {
     );
   }
 }
+
+//https://newsapi.org/v2/everything?q=ahly&apiKey=cb13fd1e88174add8c9ff03c0e72ac09

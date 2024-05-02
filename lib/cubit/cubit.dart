@@ -137,6 +137,35 @@ class AppCubit extends Cubit<AppStates> {
     }
   }
 
+  List<dynamic> search = [];
+
+  void getSearch({required String value}) {
+
+    emit(AppGetSearchLoadingState());
+
+    search = [];
+
+    DioHelper.i.getData(
+      path: "v2/everything",
+      query: {
+        "q": value,
+        "apiKey": "cb13fd1e88174add8c9ff03c0e72ac09",
+      },
+    ).then((value) {
+      search = value.data['articles'];
+      emit(
+        AppGetSearchSuccessState(),
+      );
+    }).catchError((error) {
+      emit(
+        AppGetSearchErrorState(
+          error.toString(),
+        ),
+      );
+    });
+
+  }
+
   bool isDark = false;
 
   void changeMode({bool? fromShared}) {
