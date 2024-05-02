@@ -39,9 +39,11 @@ class SearchView extends StatelessWidget {
                     }),
               ),
               Expanded(
-                  child: buildArticle(
-                list,
-              )),
+                child: buildArticle(
+                  list,
+                  isSearch: true,
+                ),
+              ),
             ],
           ),
         );

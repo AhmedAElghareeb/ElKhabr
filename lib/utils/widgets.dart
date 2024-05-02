@@ -71,7 +71,7 @@ Widget buildArticleItem(article, BuildContext context) => InkWell(
       ),
     );
 
-Widget buildArticle(list) => ConditionalBuilder(
+Widget buildArticle(list, {isSearch = false}) => ConditionalBuilder(
       condition: list.isNotEmpty,
       builder: (context) => ListView.separated(
         padding:
@@ -85,7 +85,7 @@ Widget buildArticle(list) => ConditionalBuilder(
         ),
         itemCount: list.length,
       ),
-      fallback: (context) => const Center(
+      fallback: (context) => isSearch ? Container() : const Center(
         child: CircularProgressIndicator(
           color: AppColors.primaryColor,
         ),
