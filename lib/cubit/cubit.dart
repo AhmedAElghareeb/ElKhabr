@@ -1,10 +1,10 @@
 import 'package:elkhabr/cubit/states.dart';
 import 'package:elkhabr/modules/business.dart';
 import 'package:elkhabr/modules/science.dart';
-import 'package:elkhabr/modules/settings.dart';
 import 'package:elkhabr/modules/sports.dart';
 import 'package:elkhabr/services/cache.dart';
 import 'package:elkhabr/services/dio.dart';
+import 'package:elkhabr/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,19 +18,15 @@ class AppCubit extends Cubit<AppStates> {
   List<BottomNavigationBarItem> bottomItems = [
     const BottomNavigationBarItem(
       icon: Icon(Icons.business_center),
-      label: "الأخبار التجارية",
+      label: AppStrings.business,
     ),
     const BottomNavigationBarItem(
       icon: Icon(Icons.sports_esports_outlined),
-      label: "الرياضة",
+      label: AppStrings.sports,
     ),
     const BottomNavigationBarItem(
       icon: Icon(Icons.science_outlined),
-      label: "العلوم",
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.settings),
-      label: "الإعدادات",
+      label: AppStrings.science,
     ),
   ];
 
@@ -38,7 +34,6 @@ class AppCubit extends Cubit<AppStates> {
     const BusinessView(),
     const SportsView(),
     const ScienceView(),
-    const SettingsView(),
   ];
 
   void changeBottomNavBar(int idx) {
@@ -150,7 +145,7 @@ class AppCubit extends Cubit<AppStates> {
       emit(AppChangeModeState());
     } else {
       isDark = !isDark;
-      Cache.setData(
+      Cache.setMode(
         key: "isDark",
         value: isDark,
       ).then((value) {

@@ -8,7 +8,7 @@ class Cache
     sharedPreferences = await SharedPreferences.getInstance();
   }
 
-  static Future<bool> setData({
+  static Future<bool> setMode({
     required String key,
     required bool value,
 }) async
@@ -16,7 +16,7 @@ class Cache
     return await sharedPreferences.setBool(key, value);
   }
 
-  static bool? getData({
+  static bool? getMode({
     required String key,
   })
   {

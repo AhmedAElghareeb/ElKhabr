@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:elkhabr/cubit/cubit.dart';
 import 'package:elkhabr/cubit/states.dart';
 import 'package:elkhabr/layouts/home_layout.dart';
@@ -12,19 +11,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = AppBlocObserver();
-  await EasyLocalization.ensureInitialized();
   await Cache.init();
-  bool? isDark = Cache.getData(key: "isDark");
+  bool? isDark = Cache.getMode(key: "isDark");
   runApp(
-    EasyLocalization(
-      path: 'assets/translations',
-      saveLocale: true,
-      startLocale: const Locale('ar'),
-      fallbackLocale: const Locale('en'),
-      supportedLocales: const [Locale('ar'), Locale('en')],
-      child: MyApp(
-        isDark: isDark!,
-      ),
+    MyApp(
+      isDark: isDark ?? false,
     ),
   );
 }
@@ -42,9 +33,11 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppCubit()..getBusiness()..changeMode(
-        fromShared: widget.isDark,
-      ),
+      create: (context) => AppCubit()
+        ..getBusiness()
+        ..changeMode(
+          fromShared: widget.isDark,
+        ),
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -55,14 +48,9 @@ class _MyAppState extends State<MyApp> {
               platform: TargetPlatform.iOS,
               useMaterial3: false,
               fontFamily: "Richard",
-              textTheme: const TextTheme(
-                bodyLarge: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
               appBarTheme: const AppBarTheme(
                 centerTitle: false,
+                titleSpacing: 18,
                 backgroundColor: AppColors.scaffoldBackColorLight,
                 elevation: 0,
                 systemOverlayStyle: SystemUiOverlayStyle(
@@ -83,15 +71,9 @@ class _MyAppState extends State<MyApp> {
               platform: TargetPlatform.iOS,
               useMaterial3: false,
               fontFamily: "Richard",
-              textTheme: const TextTheme(
-                bodyLarge: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
-              ),
               appBarTheme: const AppBarTheme(
                 centerTitle: false,
+                titleSpacing: 18,
                 backgroundColor: AppColors.scaffoldBackColorDark,
                 elevation: 0,
                 systemOverlayStyle: SystemUiOverlayStyle(
@@ -108,15 +90,15 @@ class _MyAppState extends State<MyApp> {
               ),
             ),
             themeMode:
-                AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
-            locale: context.locale,
-            supportedLocales: context.supportedLocales,
-            localizationsDelegates: context.localizationDelegates,
+                AppCubit.get(context).isDark ? ThemeMode.light : ThemeMode.dark,
             home: const HomeLayoutView(),
+            builder: (context, child) => Directionality(
+              textDirection: TextDirection.rtl,
+              child: child!,
+            ),
           );
         },
       ),
     );
   }
 }
-
